@@ -17,7 +17,7 @@ namespace DataBase {
     class Columns {
         [PrimaryKey, AutoIncrement]
         public Guid id { get; set; }
-        
+
         [ForeignKey(typeof(Kanbans))]
         public Guid KanbanId { get; set; }
 

@@ -20,7 +20,7 @@ namespace src {
                     SetConnection();
                     InitDB();
                 }
-                return db;
+                return _db;
             }
         }
 
@@ -32,6 +32,7 @@ namespace src {
 
         public static void SetConnection() {
             string completePath = GetDatabasePath();
+            Console.WriteLine(completePath);
             _db = new SQLiteConnection(completePath);
         }
 
