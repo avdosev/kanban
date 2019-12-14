@@ -35,7 +35,7 @@ namespace src
 
             kanbanReposAdapter = new KanbanReposAdapter();
 
-            //// Register the item click handler (below) with the adapter:
+            // Register the item click handler (below) with the adapter:
             kanbanReposAdapter.ItemClick += OnKanbanClick;
 
             // Plug the adapter into the RecyclerView:
@@ -68,8 +68,21 @@ namespace src
 
         private void FabOnClick(object sender, EventArgs eventArgs)
         {
-            View view = (View) sender;
-            // make create view
+            var builder = new Android.Support.V7.App.AlertDialog.Builder(this);
+            builder.SetView(Resource.Layout.create_kanban);
+            
+            builder
+                .SetTitle("Creating kanban")
+                .SetPositiveButton(Resource.String.create, (send, args) => {
+                    var view = send as Dialog;
+                    var titleTextView = view.FindViewById<Android.Widget.TextView>(Resource.Id.kanban_title);
+                    Console.WriteLine("OK");
+                    Console.WriteLine(titleTextView.Text);
+                }).SetNegativeButton(Resource.String.cancel, (send, args) => {
+                    Console.WriteLine("CANCEL");
+                });
+
+            builder.Create().Show();
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {

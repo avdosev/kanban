@@ -2,4 +2,7 @@
     <string name="app_name">Kanban</string>
     <string name="action_settings">Settings</string>
 	<string name="plus">+</string>
+	<string name="create">Создать</string>
+	<string name="cancel">Отменить</string>
+	
 </resources>
