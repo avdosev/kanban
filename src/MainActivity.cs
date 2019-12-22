@@ -78,6 +78,10 @@ namespace src
                     var titleTextView = view.FindViewById<Android.Widget.TextView>(Resource.Id.kanban_title);
                     Console.WriteLine("OK");
                     Console.WriteLine(titleTextView.Text);
+                    var kanban = new Kanbans {
+                        Title = titleTextView.Text
+                    };
+                    DataBase.db.Insert(kanban);
                 }).SetNegativeButton(Resource.String.cancel, (send, args) => {
                     Console.WriteLine("CANCEL");
                 });
