@@ -60,8 +60,9 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activity\KanbanActivity.cs" />
     <Compile Include="DataBase.cs" />
-    <Compile Include="MainActivity.cs" />
+    <Compile Include="Activity\MainActivity.cs" />
     <Compile Include="DataBaseDTO.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

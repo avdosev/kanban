@@ -6,6 +6,7 @@ using Android.Support.Design.Widget;
 using Android.Support.V7.App;
 using Android.Support.V7.Widget;
 using Android.Views;
+using Android.Content;
 
 using DataBase;
 
@@ -66,8 +67,7 @@ namespace src
             return base.OnOptionsItemSelected(item);
         }
 
-        private void FabOnClick(object sender, EventArgs eventArgs)
-        {
+        private void FabOnClick(object sender, EventArgs eventArgs) {
             var builder = new Android.Support.V7.App.AlertDialog.Builder(this);
             builder.SetView(Resource.Layout.create_kanban);
             
@@ -88,6 +88,14 @@ namespace src
 
             builder.Create().Show();
         }
+
+        public void ToKanbanActivity(Guid kanbanId) {
+            var intent = new Intent(this, typeof(KanbanActivity));
+            intent.PutExtra("kanbanId", kanbanId.ToString());
+
+            StartActivity(intent);
+        }
+        
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -143,7 +151,7 @@ namespace src
             KanbanViewHolder vh = holder as KanbanViewHolder;
             // Set the ImageView and TextView in this ViewHolder's CardView 
             // from this position in the photo album:
-            var item = DataBase.db.Table<Kanbans>().ToArray()[position];
+            var item = DataBase.db.Table<Kanbans>().ElementAt(position);
             vh.KanbanId = item.id;
             vh.Caption.Text = item.Title;
         }
