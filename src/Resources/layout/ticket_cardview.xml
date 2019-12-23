@@ -13,7 +13,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="8dp">
+            android:padding="8dp"
+            android:id="@+id/ticket_button_layout">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
