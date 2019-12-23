@@ -80,6 +80,10 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\add_24px.png" />
+    <AndroidResource Include="Resources\drawable\arrow_back.png" />
+    <AndroidResource Include="Resources\drawable\arrow_forward.png" />
+    <AndroidResource Include="Resources\drawable\delete.png" />
+    <AndroidResource Include="Resources\drawable\view_carousel.png" />
     <AndroidResource Include="Resources\values\colors.xml" />
     <AndroidResource Include="Resources\values\dimens.xml" />
     <AndroidResource Include="Resources\values\ic_launcher_background.xml" />
@@ -129,6 +133,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\create_kanban.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\ticket_cardview.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
