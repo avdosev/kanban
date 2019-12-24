@@ -48,6 +48,13 @@ namespace src
             // Display a toast that briefly shows the enumeration of the selected photo:
             // var KanbanHolder = sender as KanbanViewHolder;
             // Console.WriteLine(KanbanHolder.KanbanId);
+            var item = DataBase.db.Table<Kanbans>().ElementAt(position);
+            if (item == null) {
+                return;
+            }
+
+            var id = item.id;
+            this.ToKanbanActivity(id);
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)

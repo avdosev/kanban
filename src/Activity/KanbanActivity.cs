@@ -13,13 +13,16 @@ using Android.Views;
 
 namespace src {
 
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar")]
+    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme")]
     class KanbanActivity : AppCompatActivity {
         protected Guid kanbanId;
         protected override void OnCreate(Bundle savedInstanceState) {
             base.OnCreate(savedInstanceState);
             kanbanId = Guid.Parse(Intent.GetStringExtra("kanbanId"));
 
+            SetContentView(Resource.Layout.kanban_activity);
+            
+            
         }
     }
 }
