@@ -21,6 +21,9 @@ namespace src {
             kanbanId = Guid.Parse(Intent.GetStringExtra("kanbanId"));
 
             SetContentView(Resource.Layout.kanban_activity);
+
+            var tabbar = FindViewById<TabLayout>(Resource.Id.tab_layout);
+
             
             
         }
