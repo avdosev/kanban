@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activity\KanbanActivity.cs" />
+    <Compile Include="Activity\MainActivityRecyclerView.cs" />
     <Compile Include="DataBase.cs" />
     <Compile Include="Activity\MainActivity.cs" />
     <Compile Include="DataBaseDTO.cs" />
