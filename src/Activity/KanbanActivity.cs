@@ -31,7 +31,7 @@ namespace src {
             tabbar.AddTab(tabbar.NewTab().SetText("test3"));
 
             var viewPager = FindViewById<Android.Support.V4.View.ViewPager>(Resource.Id.viewpager);
-            viewPager.Adapter = new ColumnPagerAdapter(SupportFragmentManager);
+            viewPager.Adapter = new ColumnPagerAdapter(SupportFragmentManager, this);
 
             tabbar.SetupWithViewPager(viewPager);
         }
@@ -54,12 +54,15 @@ namespace src {
             base.OnCreate(savedInstanceState);
             if (Arguments != null) {
                 mPage = Arguments.GetInt(ARG_PAGE);
+                Console.WriteLine(mPage);
             }
         }
 
         override public View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            Console.WriteLine("creating view");
             View view = inflater.Inflate(Resource.Layout.kanban_content, container, false);
             // Making recicler view
+            
             return view;
         }
     }
@@ -74,8 +77,8 @@ namespace src {
             get { return PAGE_COUNT; }
         }
 
-        public ColumnPagerAdapter(Android.Support.V4.App.FragmentManager fm) : base(fm) {
-            
+        public ColumnPagerAdapter(Android.Support.V4.App.FragmentManager fm, Context context) : base(fm) {
+            this.context = context;
         }
 
         public override Java.Lang.ICharSequence GetPageTitleFormatted(int position) {
