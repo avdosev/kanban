@@ -126,7 +126,13 @@ namespace src {
 
             // Detect user clicks on the item view and report which item
             // was clicked (by layout position) to the listener:
-            // itemView.Click += (sender, e) => listener(base.LayoutPosition);
+            itemView.Click += ItemView_Click;
+        }
+
+        private void ItemView_Click(object sender, EventArgs e) {
+            var view = sender as View;
+            var buttonLayout = view.FindViewById<LinearLayoutCompat>(Resource.Id.ticket_button_layout);
+            buttonLayout.Visibility = buttonLayout.Visibility == ViewStates.Gone ? ViewStates.Visible : ViewStates.Gone;
         }
     }
 
