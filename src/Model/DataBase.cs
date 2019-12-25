@@ -7,6 +7,7 @@ using System.Text;
 using Environment = System.Environment;
 
 using SQLite;
+using SQLiteNetExtensions.Extensions;
 using DataBase;
 
 namespace src {

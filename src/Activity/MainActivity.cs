@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 using Android.App;
 using Android.OS;
 using Android.Runtime;
@@ -11,6 +13,7 @@ using Android.Content;
 
 using src.KanbanRecyclerView;
 using DataBase;
+using SQLiteNetExtensions.Extensions;
 
 namespace src
 {
@@ -111,6 +114,22 @@ namespace src
                         Title = titleTextView.Text
                     };
                     DataBase.db.Insert(kanban);
+
+                    var standart_columns = new string[] { "ToDo", "In Progress", "Done" };
+                    var columnList = new List<Columns>();
+                    foreach (var columnName in standart_columns) {
+                        var column = new Columns {
+                            Name = columnName,
+                            KanbanId = kanban.id
+                        };
+                        DataBase.db.Insert(column);
+                        columnList.Add(column);
+                    }
+                    kanban.columns = columnList;
+                    DataBase.db.UpdateWithChildren(kanban);
+
+                    kanbanReposAdapter.NotifyItemInserted(kanbanReposAdapter.ItemCount);
+
                 }).SetNegativeButton(Resource.String.cancel, (send, args) => {
                     Console.WriteLine("CANCEL");
                 });
