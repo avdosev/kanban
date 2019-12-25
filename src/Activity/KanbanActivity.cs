@@ -28,12 +28,8 @@ namespace src {
 
             var tabbar = FindViewById<TabLayout>(Resource.Id.tab_layout);
 
-            tabbar.AddTab(tabbar.NewTab().SetText("test1"));
-            tabbar.AddTab(tabbar.NewTab().SetText("test2"));
-            tabbar.AddTab(tabbar.NewTab().SetText("test3"));
-
             var viewPager = FindViewById<Android.Support.V4.View.ViewPager>(Resource.Id.viewpager);
-            viewPager.Adapter = new ColumnPagerAdapter(SupportFragmentManager, this);
+            viewPager.Adapter = new ColumnPagerAdapter(SupportFragmentManager, this, kanbanId);
 
             tabbar.SetupWithViewPager(viewPager);
         }
@@ -42,15 +38,15 @@ namespace src {
     public class ColumnPageFragment : Android.Support.V4.App.Fragment {
         private Context context;
         private const string ARG_PAGE = "ARG_PAGE";
-        public Guid KanbanId {
-            get; set;
-        }
+        private const string ARG_KANBAN = "ARG_KANBAN";
 
+        private Guid KanbanId;
         private int mPage;
 
-        public static ColumnPageFragment newInstance(int page, Context context) {
+        public static ColumnPageFragment newInstance(int page, Context context, Guid kanbanId) {
             Bundle args = new Bundle();
             args.PutInt(ARG_PAGE, page);
+            args.PutString(ARG_KANBAN, kanbanId.ToString());
             ColumnPageFragment fragment = new ColumnPageFragment();
             fragment.Arguments = args;
             fragment.context = context;
@@ -61,6 +57,7 @@ namespace src {
             base.OnCreate(savedInstanceState);
             if (Arguments != null) {
                 mPage = Arguments.GetInt(ARG_PAGE);
+                KanbanId = Guid.Parse(Arguments.GetString(ARG_KANBAN));
                 Console.WriteLine(mPage);
             }
         }
@@ -87,23 +84,23 @@ namespace src {
    
 
     public class ColumnPagerAdapter : FragmentPagerAdapter {
-        const int PAGE_COUNT = 3;
-        private string[] tabTitles = new string[] { "Tab1", "Tab2", "Tab3" };
         Context context;
+        Guid KanbanId;
         public override int Count {
-            get { return PAGE_COUNT; }
+            get => DataBase.db.Table<Columns>().Where<Columns>((column) => column.KanbanId == KanbanId).Count();
         }
 
-        public ColumnPagerAdapter(Android.Support.V4.App.FragmentManager fm, Context context) : base(fm) {
+        public ColumnPagerAdapter(Android.Support.V4.App.FragmentManager fm, Context context, Guid KanbanId) : base(fm) {
             this.context = context;
+            this.KanbanId = KanbanId;
         }
 
         public override Java.Lang.ICharSequence GetPageTitleFormatted(int position) {
-            return new Java.Lang.String(tabTitles[position]);
+            return new Java.Lang.String(DataBase.db.Table<Columns>().Where<Columns>((column) => column.KanbanId == KanbanId).ElementAt(position).Name);
         }
 
         public override Android.Support.V4.App.Fragment GetItem(int position) {
-            return ColumnPageFragment.newInstance(position, context);
+            return ColumnPageFragment.newInstance(position, context, KanbanId);
         }
     }
 
