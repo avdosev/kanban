@@ -40,6 +40,7 @@ namespace src
 
             // Register the item click handler (below) with the adapter:
             kanbanReposAdapter.ItemClick += OnKanbanClick;
+            kanbanReposAdapter.ItemLongClick += OnKanbanLongClick;
 
             // Plug the adapter into the RecyclerView:
             KanbansView.SetAdapter(kanbanReposAdapter);
@@ -57,6 +58,25 @@ namespace src
 
             var id = item.id;
             this.ToKanbanActivity(id);
+        }
+
+        public void OnKanbanLongClick(object sender, int position) {
+            
+            var item = DataBase.db.Table<Kanbans>().ElementAt(position);
+            if (item == null) {
+                return;
+            }
+
+            var alert = new Android.Support.V7.App.AlertDialog.Builder(this);
+            alert.SetTitle("Confirm delete");
+            alert.SetNegativeButton("Отмена", new EventHandler<DialogClickEventArgs>((obj, puk) => { }));
+            alert.SetPositiveButton("Удалить", (obj, args) => {
+                var id = item.id;
+                DataBase.db.Delete<Kanbans>(id);
+                kanbanReposAdapter.NotifyItemRemoved(position);
+            });
+            alert.SetMessage("Удалить запись?");
+            alert.Create().Show();
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)

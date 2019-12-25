@@ -33,6 +33,16 @@ namespace src {
 
             tabbar.SetupWithViewPager(viewPager);
         }
+
+        public void OnCreateTicket(object sender, EventArgs args) {
+            var ticket = new Ticket {
+                ColumnKanbanId = kanbanId,
+                ColumnId = DataBase.db.Table<Columns>().Where<Columns>((column) => column.KanbanId == kanbanId).ElementAt(0).id,
+                Text = "Test ticket",
+                Color = "#fff"
+            };
+            DataBase.db.Insert(ticket);
+        }
     }
 
     public class ColumnPageFragment : Android.Support.V4.App.Fragment {

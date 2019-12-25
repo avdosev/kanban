@@ -24,7 +24,7 @@ namespace src.KanbanRecyclerView {
         public Guid KanbanId { get; set; }
 
         // Get references to the views defined in the CardView layout.
-        public KanbanViewHolder(View itemView, Action<int> listener)
+        public KanbanViewHolder(View itemView, Action<int> listener, Action<int> listener2)
             : base(itemView) {
             // Locate and cache view references:
             Caption = itemView.FindViewById<Android.Widget.TextView>(Resource.Id.title_textview);
@@ -32,6 +32,8 @@ namespace src.KanbanRecyclerView {
             // Detect user clicks on the item view and report which item
             // was clicked (by layout position) to the listener:
             itemView.Click += (sender, e) => listener(base.LayoutPosition);
+            itemView.LongClick += (sender, e) => listener2(base.LayoutPosition);
+            
         }
     }
 
@@ -40,6 +42,7 @@ namespace src.KanbanRecyclerView {
     public class KanbanReposAdapter : RecyclerView.Adapter {
         // Event handler for item clicks:
         public event EventHandler<int> ItemClick;
+        public event EventHandler<int> ItemLongClick;
 
         // Load the adapter with the data set (photo album) at construction time:
         public KanbanReposAdapter() {
@@ -54,7 +57,7 @@ namespace src.KanbanRecyclerView {
 
             // Create a ViewHolder to find and hold these view references, and 
             // register OnClick with the view holder:
-            KanbanViewHolder vh = new KanbanViewHolder(itemView, OnClick);
+            KanbanViewHolder vh = new KanbanViewHolder(itemView, OnClick, OnLongClick);
             return vh;
         }
 
@@ -76,6 +79,10 @@ namespace src.KanbanRecyclerView {
         // Raise an event when the item-click takes place:
         void OnClick(int position) {
             ItemClick?.Invoke(this, position);
+        }
+
+        void OnLongClick(int position) {
+            ItemLongClick?.Invoke(this, position);
         }
     }
 }
