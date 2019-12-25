@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="8dp"
-            android:id="@+id/ticket_button_layout">
+            >
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -30,7 +30,8 @@
                 android:orientation="horizontal"
                 android:padding="10dp"
                 android:gravity="right"
-                android:visibility="gone">
+                android:visibility="gone"
+                android:id="@+id/ticket_button_layout">
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

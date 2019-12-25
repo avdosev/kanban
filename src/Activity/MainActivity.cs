@@ -9,7 +9,6 @@ using Android.Views;
 using Android.Content;
 
 
-
 using src.KanbanRecyclerView;
 using DataBase;
 
